@@ -43,9 +43,8 @@ class Sudoku
 
     @board = @board.each_slice(9).to_a
     @board[row].each do |num|
-      if @previous_numbers.include?(num)
-        @previous_numbers.delete(num)
-
+      @possible_numbers.delete_if do |pos_num|
+        num == pos_num
       end
     @board = @board.flatten
     end
@@ -56,9 +55,8 @@ class Sudoku
 
     @board = @board.each_slice(9).to_a
     @board.each do |row|
-      if @previous_numbers.include?(row[col])
-        @previous_numbers.delete(row[col])
-
+      @possible_numbers.delete_if do |pos_num|
+        row[col] == pos_num
       end
     @board = @board.flatten
     end
@@ -69,8 +67,8 @@ class Sudoku
 
     box = which_box(row, column)
     @boxes[box].each do |num|
-      if @previous_numbers.include?(num)
-        @previous_numbers.delete(num)
+      @possible_numbers.delete_if do |pos_num|
+        pos_num == num
       end
     end
   end
